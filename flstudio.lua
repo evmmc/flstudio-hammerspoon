@@ -107,8 +107,9 @@ for i = 1, 8 do
   end)
 end
 
-return flstudio
 -- Start the watcher
 function flstudio.start()
     flstudio.watcher:start()
 end
+
+return flstudio
