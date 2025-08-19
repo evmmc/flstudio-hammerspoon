@@ -8,3 +8,12 @@ hs.application.watcher.new(function(appName, eventType, app)
         print("Active Application: " .. appName)  -- Logs to Hammerspoon console
     end
 end):start()
+-- Hammerspoon: Empty Trash instantly, system-wide
+hs.hotkey.bind({"cmd", "alt", "shift"}, "delete", function()
+    hs.osascript.applescript([[
+        tell application "Finder"
+            empty the trash without asking
+        end tell
+    ]])
+    hs.notify.new({title="Hammerspoon", informativeText="Trash Emptied Instantly"}):send()
+end)
