@@ -80,30 +80,18 @@ for fnKey, padKey in pairs(patternKeys) do
   end)
 end
 
--- Patterns 1–20 via Cmd+F1–F20
+-- Patterns 1–12 via Cmd+Shift+F1–F12
 local patterns = {}
-for i = 1, 20 do
+for i = 1, 12 do
   local fnKey = "F" .. i
   local padKey = "pad" .. i
   patterns[fnKey] = padKey
 end
 
 for fnKey, padKey in pairs(patterns) do
-  hs.hotkey.bind({"cmd"}, fnKey, function()
+  hs.hotkey.bind({"cmd", "shift"}, fnKey, function()
     hs.eventtap.keyStroke({}, padKey)
     hs.notify.new({title="FL Studio", informativeText="Selected Pattern " .. string.sub(padKey, 4)}):send()
-  end)
-end
-
--- Cmd+Opt+1–8 → Pattern 13–20
-for i = 1, 8 do
-  local key = tostring(i)
-  local patternNum = i + 12
-  local padKey = "pad" .. patternNum
-
-  hs.hotkey.bind({"cmd", "alt"}, key, function()
-    hs.eventtap.keyStroke({}, padKey)
-    hs.notify.new({title="FL Studio", informativeText="Selected Pattern " .. patternNum}):send()
   end)
 end
 
