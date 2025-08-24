@@ -20,4 +20,9 @@ hs.application.watcher.new(function(appName, eventType, app)
     end
 end):start()
 
+-- Hammerspoon: run "doom +everywhere" with Ctrl+Alt+D
+hs.hotkey.bind({"ctrl", "cmd"}, "=", function()
+    hs.execute("doom +everywhere", true)  -- true = capture output (optional)
+end)
+
 return utilities
