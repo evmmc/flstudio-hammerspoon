@@ -1,9 +1,20 @@
 -- flstudio.lua
 local flstudio = {}
 
+-- Hammerspoon function: trigger "Remove all edisons" in FL Studio
+function fl_remove_edisons()
+  local app = hs.appfinder.appFromName("FL Studio")
+  if app then
+    app:selectMenuItem({"Tools", "Macros", "Remove all Edison instances"})
+    hs.alert.show("🧹 Removed all Edisons")
+  else
+    hs.alert.show("FL Studio not running")
+  end
+end
+
+
 -- Table to store FL Studio hotkeys
 local flStudioHotkeys = {}
-
 -- Function to activate hotkeys when FL Studio is active
 function flstudio.activateHotkeys()
     -- Settings
@@ -14,34 +25,45 @@ function flstudio.activateHotkeys()
     flStudioHotkeys[2] = hs.hotkey.bind({"cmd"}, "m", function()
         hs.eventtap.keyStroke({}, "F9")
     end)
-    -- Channel rack
-    flStudioHotkeys[3] = hs.hotkey.bind({"cmd"}, "r", function()
-        hs.eventtap.keyStroke({}, "F6")
+    -- insert pattern before this one
+    flStudioHotkeys[11] = hs.hotkey.bind({"cmd", "shift"}, "i", function()
+        hs.eventtap.keyStroke({"shift", "ctrl"}, "insert")
     end)
-    -- Playlist
-    flStudioHotkeys[4] = hs.hotkey.bind({"cmd"}, "p", function()
-        hs.eventtap.keyStroke({}, "F5")
+    flStudioHotkeys[13] = hs.hotkey.bind({"cmd", "shift"}, "i", function()
+        hs.eventtap.keyStroke({"shift", "ctrl"}, "insert")
     end)
-    -- Help
-    flStudioHotkeys[5] = hs.hotkey.bind({"cmd", "shift", "alt"}, "h", function()
-        hs.eventtap.keyStroke({}, "F1")
+-- FL Studio pattern navigation
+    flStudioHotkeys[14] = hs.hotkey.bind({"cmd","shift"}, "p", function()
+        hs.eventtap.keyStroke({}, "pad-")   -- previous pattern
     end)
-    -- Piano roll
-    flStudioHotkeys[6] = hs.hotkey.bind({"cmd", "ctrl"}, "r", function()
-        hs.eventtap.keyStroke({}, "F7")
+
+    flStudioHotkeys[15] = hs.hotkey.bind({"cmd","shift"}, "n", function()
+        hs.eventtap.keyStroke({}, "pad+")   -- next pattern
     end)
-    -- redo
-    flStudioHotkeys[7] = hs.hotkey.bind({"cmd"}, "y", function()
-        hs.eventtap.keyStroke({"cmd", "alt"}, "z")
-    end)
-    -- new named pattern
-    flStudioHotkeys[8] = hs.hotkey.bind("F4", function()
-        hs.eventtap.keyStroke({"cmd", "ctrl"}, "n")
-    end)
-    -- new unnamed pattern
-    flStudioHotkeys[9] = hs.hotkey.bind({"cmd"}, "F4", function()
-        hs.eventtap.keyStroke({"cmd", "ctrl"}, "m")
-    end)
+-- Example: bind to Cmd+Alt+A
+    flStudioHotkeys[16] = hs.hotkey.bind({"cmd", "opt", "ctrl"}, "x", fl_remove_edisons)
+
+flStudioHotkeys[16] = hs.hotkey.bind({"cmd", "shift"}, "C", function()
+    local app = hs.application.frontmostApplication()
+    if app and app:name() == "FL Studio" then
+        hs.eventtap.keyStroke({"ctrl"}, "F12", 0, app)
+    end
+end)
+
+flStudioHotkeys[17] = hs.hotkey.bind({"cmd", "shift"}, "B", function()
+    local app = hs.application.frontmostApplication()
+    if app and app:name() == "FL Studio" then
+        hs.eventtap.keyStroke({"opt"}, "F8", 0, app)
+    end
+end)
+
+flStudioHotkeys[18] = hs.hotkey.bind({"cmd", "shift"}, "P", function()
+    local app = hs.application.frontmostApplication()
+    if app and app:name() == "FL Studio" then
+        hs.eventtap.keyStroke("F8", 0, app)
+    end
+end)
+
 end
 
 -- Function to deactivate hotkeys when FL Studio is inactive
@@ -75,23 +97,8 @@ local patternKeys = {
 }
 
 for fnKey, padKey in pairs(patternKeys) do
-  hs.hotkey.bind({"cmd", "ctrl"}, fnKey, function()
+  hs.hotkey.bind({"cmd", "ctrl", "opt"}, fnKey, function()
     hs.eventtap.keyStroke({}, padKey)
-  end)
-end
-
--- Patterns 1–12 via Cmd+Shift+F1–F12
-local patterns = {}
-for i = 1, 12 do
-  local fnKey = "F" .. i
-  local padKey = "pad" .. i
-  patterns[fnKey] = padKey
-end
-
-for fnKey, padKey in pairs(patterns) do
-  hs.hotkey.bind({"cmd", "shift"}, fnKey, function()
-    hs.eventtap.keyStroke({}, padKey)
-    hs.notify.new({title="FL Studio", informativeText="Selected Pattern " .. string.sub(padKey, 4)}):send()
   end)
 end
 

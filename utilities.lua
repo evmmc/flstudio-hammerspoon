@@ -11,7 +11,6 @@ hs.hotkey.bind({"cmd", "alt", "shift"}, "delete", function()
     hs.notify.new({title="Hammerspoon", informativeText="Trash Emptied Instantly"}):send()
 end)
 
-
 -- Log the name of the active application to confirm appName
 hs.application.watcher.new(function(appName, eventType, app)
     if eventType == hs.application.watcher.activated then
@@ -21,8 +20,7 @@ hs.application.watcher.new(function(appName, eventType, app)
 end):start()
 
 -- Hammerspoon: run "doom +everywhere" with Ctrl+Alt+D
-hs.hotkey.bind({"ctrl", "cmd"}, "=", function()
+hs.hotkey.bind({"ctrl", "cmd", "opt"}, "e", function()
     hs.execute("doom +everywhere", true)  -- true = capture output (optional)
 end)
-
 return utilities
