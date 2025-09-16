@@ -21,54 +21,42 @@ function flstudio.activateHotkeys()
     flStudioHotkeys[1] = hs.hotkey.bind({"cmd"}, ",", function()
         hs.eventtap.keyStroke({}, "F10")
     end)
+    --  Channel rack
     -- Mixer
     flStudioHotkeys[2] = hs.hotkey.bind({"cmd"}, "m", function()
         hs.eventtap.keyStroke({}, "F9")
     end)
-    -- insert pattern before this one
-    flStudioHotkeys[11] = hs.hotkey.bind({"cmd", "shift"}, "i", function()
-        hs.eventtap.keyStroke({"shift", "ctrl"}, "insert")
-    end)
-    flStudioHotkeys[13] = hs.hotkey.bind({"cmd", "shift"}, "i", function()
+
+    flStudioHotkeys[13] = hs.hotkey.bind({"option", "shift"}, "i", function()
         hs.eventtap.keyStroke({"shift", "ctrl"}, "insert")
     end)
 -- FL Studio pattern navigation
-    flStudioHotkeys[14] = hs.hotkey.bind({"cmd","shift"}, "p", function()
+    flStudioHotkeys[14] = hs.hotkey.bind({"option"}, "p", function()
         hs.eventtap.keyStroke({}, "pad-")   -- previous pattern
     end)
 
-    flStudioHotkeys[15] = hs.hotkey.bind({"cmd","shift"}, "n", function()
+    flStudioHotkeys[15] = hs.hotkey.bind({"option"}, "n", function()
         hs.eventtap.keyStroke({}, "pad+")   -- next pattern
     end)
--- Example: bind to Cmd+Alt+A
-    flStudioHotkeys[16] = hs.hotkey.bind({"cmd", "opt", "ctrl"}, "x", fl_remove_edisons)
 
-flStudioHotkeys[16] = hs.hotkey.bind({"cmd", "shift"}, "C", function()
-    local app = hs.application.frontmostApplication()
-    if app and app:name() == "FL Studio" then
-        hs.eventtap.keyStroke({"ctrl"}, "F12", 0, app)
-    end
-end)
+    flStudioHotkeys[19] = hs.hotkey.bind({"cmd"}, "c", function()
+        hs.eventtap.keyStroke({}, "F6")
+    end)
 
-flStudioHotkeys[17] = hs.hotkey.bind({"cmd", "shift"}, "B", function()
-    local app = hs.application.frontmostApplication()
-    if app and app:name() == "FL Studio" then
-        hs.eventtap.keyStroke({"opt"}, "F8", 0, app)
-    end
-end)
+    -- playlist
+    flStudioHotkeys[20] = hs.hotkey.bind({"cmd"}, "p", function()
+        hs.eventtap.keyStroke({}, "F5")
+    end)
 
-flStudioHotkeys[18] = hs.hotkey.bind({"cmd", "shift"}, "P", function()
-    local app = hs.application.frontmostApplication()
-    if app and app:name() == "FL Studio" then
-        hs.eventtap.keyStroke("F8", 0, app)
-    end
-end)
+    -- Example: bind to Cmd+Alt+A
+    flStudioHotkeys[21] = hs.hotkey.bind({"cmd", "option", "ctrl"}, "x", fl_remove_edisons)
 
 end
 
 -- Function to deactivate hotkeys when FL Studio is inactive
 function flstudio.deactivateHotkeys()
-    for _, hotkey in ipairs(flStudioHotkeys) do
+    -- for _, hotkey in ipairs(flStudioHotkeys) do
+    for _, hotkey in pairs(flStudioHotkeys) do
         hotkey:delete()
     end
     flStudioHotkeys = {}
