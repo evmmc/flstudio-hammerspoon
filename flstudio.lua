@@ -27,29 +27,46 @@ function flstudio.activateHotkeys()
         hs.eventtap.keyStroke({}, "F9")
     end)
 
-    flStudioHotkeys[13] = hs.hotkey.bind({"option", "shift"}, "i", function()
-        hs.eventtap.keyStroke({"shift", "ctrl"}, "insert")
-    end)
--- FL Studio pattern navigation
-    flStudioHotkeys[14] = hs.hotkey.bind({"option"}, "p", function()
-        hs.eventtap.keyStroke({}, "pad-")   -- previous pattern
+    flStudioHotkeys[3] = hs.hotkey.bind({"option"}, "p", function()
+        hs.eventtap.keyStroke({}, "F8")
     end)
 
-    flStudioHotkeys[15] = hs.hotkey.bind({"option"}, "n", function()
-        hs.eventtap.keyStroke({}, "pad+")   -- next pattern
+    flStudioHotkeys[4] = hs.hotkey.bind({"option", }, "b", function()
+        hs.eventtap.keyStroke({"option"}, "F8")
     end)
 
-    flStudioHotkeys[19] = hs.hotkey.bind({"cmd"}, "c", function()
+    flStudioHotkeys[5] = hs.hotkey.bind({"option", }, "r", function()
+        hs.eventtap.keyStroke({}, "F7")
+    end)
+
+
+    flStudioHotkeys[6] = hs.hotkey.bind({"cmd"}, "c", function()
         hs.eventtap.keyStroke({}, "F6")
     end)
 
     -- playlist
-    flStudioHotkeys[20] = hs.hotkey.bind({"cmd"}, "p", function()
+    flStudioHotkeys[7] = hs.hotkey.bind({"cmd"}, "p", function()
         hs.eventtap.keyStroke({}, "F5")
     end)
 
+    flStudioHotkeys[8] = hs.hotkey.bind({"cmd"}, "p", function()
+        hs.eventtap.keyStroke({}, "F4")
+    end)
+
     -- Example: bind to Cmd+Alt+A
-    flStudioHotkeys[21] = hs.hotkey.bind({"cmd", "option", "ctrl"}, "x", fl_remove_edisons)
+    flStudioHotkeys[9] = hs.hotkey.bind({"option"}, "x", fl_remove_edisons)
+
+    flStudioHotkeys[10] = hs.hotkey.bind({"option"}, "i", function()
+        hs.eventtap.keyStroke({"shift", "cmd"}, "insert")
+    end)
+-- FL Studio pattern navigation
+    flStudioHotkeys[11] = hs.hotkey.bind({"option"}, "[", function()
+        hs.eventtap.keyStroke({}, "pad-")   -- previous pattern
+    end)
+
+    flStudioHotkeys[12] = hs.hotkey.bind({"option"}, "]", function()
+        hs.eventtap.keyStroke({}, "pad+")   -- next pattern
+    end)
 
 end
 
@@ -71,21 +88,21 @@ flstudio.watcher = hs.application.watcher.new(function(appName, eventType, app)
     end
 end)
 
--- Map Cmd + F1 to F9 → Numpad 1 to 9 (Pattern 1 to 9 in FL Studio)
+-- Map Option + 1 to 9 → Numpad 1 to 9 (Pattern 1 to 9 in FL Studio)
 local patternKeys = {
-  F1 = "pad1",
-  F2 = "pad2",
-  F3 = "pad3",
-  F4 = "pad4",
-  F5 = "pad5",
-  F6 = "pad6",
-  F7 = "pad7",
-  F8 = "pad8",
-  F9 = "pad9"
+  ["1"] = "pad1",
+  ["2"] = "pad2",
+  ["3"] = "pad3",
+  ["4"] = "pad4",
+  ["5"] = "pad5",
+  ["6"] = "pad6",
+  ["7"] = "pad7",
+  ["8"] = "pad8",
+  ["9"] = "pad9"
 }
 
-for fnKey, padKey in pairs(patternKeys) do
-  hs.hotkey.bind({"cmd", "ctrl", "opt"}, fnKey, function()
+for numKey, padKey in pairs(patternKeys) do
+  hs.hotkey.bind({"option"}, numKey, function()
     hs.eventtap.keyStroke({}, padKey)
   end)
 end
