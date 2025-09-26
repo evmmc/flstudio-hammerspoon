@@ -74,7 +74,7 @@ masterModal:bind({}, "s", function()
   hs.task.new("/usr/bin/shortcuts", nil, {"run", "Shazam to Note"}):start()
 end)
 
--- BONUS: I've rebound the help pop-up to the '?' key, as it's intuitive.
+-- show binds
 masterModal:bind({}, "c", function()
   masterModal:exit()
   show_active_config() -- This function is defined in the hotkey management section
