@@ -15,13 +15,15 @@ end
 
 -- Table to store FL Studio hotkeys
 local flStudioHotkeys = {}
+
 -- Function to activate hotkeys when FL Studio is active
 function flstudio.activateHotkeys()
+
     -- Settings
     flStudioHotkeys[1] = hs.hotkey.bind({"cmd"}, ",", function()
         hs.eventtap.keyStroke({}, "F10")
     end)
-    --  Channel rack
+
     -- Mixer
     flStudioHotkeys[2] = hs.hotkey.bind({"cmd"}, "m", function()
         hs.eventtap.keyStroke({}, "F9")
@@ -39,7 +41,6 @@ function flstudio.activateHotkeys()
         hs.eventtap.keyStroke({}, "F7")
     end)
 
-
     flStudioHotkeys[6] = hs.hotkey.bind({"cmd"}, "c", function()
         hs.eventtap.keyStroke({}, "F6")
     end)
@@ -49,7 +50,7 @@ function flstudio.activateHotkeys()
         hs.eventtap.keyStroke({}, "F5")
     end)
 
-    flStudioHotkeys[8] = hs.hotkey.bind({"cmd"}, "p", function()
+    flStudioHotkeys[8] = hs.hotkey.bind({"opt"}, "n", function()
         hs.eventtap.keyStroke({}, "F4")
     end)
 
@@ -59,7 +60,8 @@ function flstudio.activateHotkeys()
     flStudioHotkeys[10] = hs.hotkey.bind({"option"}, "i", function()
         hs.eventtap.keyStroke({"shift", "cmd"}, "insert")
     end)
--- FL Studio pattern navigation
+
+    -- FL Studio pattern navigation
     flStudioHotkeys[11] = hs.hotkey.bind({"option"}, "[", function()
         hs.eventtap.keyStroke({}, "pad-")   -- previous pattern
     end)
