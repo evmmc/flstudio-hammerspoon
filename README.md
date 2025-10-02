@@ -1,4 +1,4 @@
-# custom keyboard shortcut for FL Studio using Hammerspoon
+# custom keyboard shortcuts for FL Studio by using Hammerspoon
 
 you may need to delete the line with `utilities.lua` in `init.lua`
 
