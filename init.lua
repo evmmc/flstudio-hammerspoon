@@ -1,4 +1,4 @@
-local flstudio = require("lib/fl/flstudio")
+local flstudio = require("flstudio")
 flstudio.start()
 
 local utilities = require("utilities")
