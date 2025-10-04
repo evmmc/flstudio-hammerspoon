@@ -50,7 +50,7 @@ function flstudio.activateHotkeys()
         hs.eventtap.keyStroke({}, "F5")
     end)
 
-    flStudioHotkeys[8] = hs.hotkey.bind({"opt"}, "n", function()
+    flStudioHotkeys[8] = hs.hotkey.bind({"option"}, "n", function()
         hs.eventtap.keyStroke({}, "F4")
     end)
 
